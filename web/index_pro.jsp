@@ -339,6 +339,7 @@ function registrar(){
             <input type="text" name="reloj3" class="input-100" style="text-align: center; display: none">
 
             <input type="submit" value="Ingresar" class="btn-enviar">
+            
             </div>
         </form>
 <!--http://blog.nnatali.com/2008/05/24/javascript-ocultarmostrar-campos-en-un-formulario/-->
