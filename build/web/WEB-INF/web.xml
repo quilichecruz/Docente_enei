@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>sesion_pro</servlet-name>
+        <servlet-class>Servlet.sesion_pro</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>cerrar_pro</servlet-name>
+        <servlet-class>Servlet.cerrar_pro</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ingreso</servlet-name>
+        <servlet-class>Servlet.ingreso</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>salida</servlet-name>
+        <servlet-class>Servlet.salida</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>sesion_pro</servlet-name>
+        <url-pattern>/sesion_pro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cerrar_pro</servlet-name>
+        <url-pattern>/cerrar_pro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ingreso</servlet-name>
+        <url-pattern>/ingreso</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>salida</servlet-name>
+        <url-pattern>/salida</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>

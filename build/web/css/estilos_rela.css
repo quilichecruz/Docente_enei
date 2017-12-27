@@ -1,0 +1,98 @@
+
+body{
+    font-family: '';
+}
+    
+h1{
+    color: #0069B4;
+    text-align: center;
+    font-family: '';
+}
+
+.form-register{
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    background: #f0f0f0;
+    border-radius: 0px;
+}
+
+label{
+    font-size: 13px;
+}
+
+.form-titulo{
+    background: #cccccc;
+    font-family: 'Raleway';
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 25px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 3px solid #fff;
+  }
+    
+.contenedor-inputs{
+    padding: 20px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+input{
+    margin-bottom: 10px;
+    padding: 7px;
+    font-size: 16px;
+    border-radius: 0px;
+    border: 2px solid darkgray;
+    font-family: '';
+}
+
+.input-48{
+    width: 48%;
+}
+
+
+.input-200{
+    font-family: '';
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 0px;
+    border: 2px solid darkgray;
+}
+
+.input-20{
+    width: 15%;
+}
+
+.input-100{
+    width: 100%;
+}
+
+.btn-enviar{
+    background: #0069B4;
+    color: #fff;
+    margin: auto;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 5px;
+    border: 1px solid white;
+    border-radius: 5px;
+    
+}
+
+.btn-enviar:active{
+    transform: scale(1.05);
+}
+
+.form-link{
+    width: 100%;
+    margin: 10px;
+    font-size: 14px;
+    text-align: center;
+}
