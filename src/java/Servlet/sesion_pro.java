@@ -83,10 +83,10 @@ public class sesion_pro extends HttpServlet {
            //session.setAttribute("reloj",reloj);
            session.setAttribute("reloj2",reloj2);
            session.setAttribute("reloj3",reloj3);
-           response.sendRedirect("index_pro.jsp");
+           response.sendRedirect("index.jsp");
         }  
         else{  
-            response.sendRedirect("index_pro.jsp");
+            response.sendRedirect("index.jsp");
         }  
         out.close();
         

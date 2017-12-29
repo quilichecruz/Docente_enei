@@ -36,7 +36,7 @@ public class cerrar_pro extends HttpServlet {
         //Cerrar sesion
         session.invalidate();
         //Redirecciono a index.jsp
-        response.sendRedirect("index_pro.jsp");
+        response.sendRedirect("index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -74,9 +75,9 @@ public class ingreso extends HttpServlet {
         //Cerrar sesion
         //session.invalidate();
         //Redirecciono a index.jsp
-        response.sendRedirect("index_pro.jsp");
+        response.sendRedirect("index.jsp");
         }else{
-        response.sendRedirect("index_pro.jsp");
+        response.sendRedirect("error.jsp");
         }  
     }
 

@@ -73,10 +73,10 @@ public class salida extends HttpServlet {
         //Cerrar sesion
         //session.invalidate();
         //Redirecciono a index.jsp
-        response.sendRedirect("index_pro.jsp");
+        response.sendRedirect("index.jsp");
         
         }else{
-        response.sendRedirect("index_pro.jsp");
+        response.sendRedirect("index.jsp");
         } 
     }
 

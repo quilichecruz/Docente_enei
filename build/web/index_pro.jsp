@@ -35,18 +35,8 @@
         <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 
-<script type="text/javascript">
-    document.oncontextmenu = function(){
-        return false;};
-</script>      
 
-<script type="text/javascript">
-    function nobackbutton(){
-        window.location.hash="no-back-button";
-        window.location.hash="Again-No-back-button"; //chrome
-	window.onhashchange=function(){
-        window.location.hash="no-back-button";};}
-</script>
+
         
 <script type="text/javascript">
 function Reloj(){ 
@@ -291,7 +281,7 @@ tiempo = setTimeout('hora()',1000)
  
     </head>
     
-    <body onload="Reloj();nobackbutton();" style="font-family: 'Dosis', sans-serif;">
+    <body onload="Reloj();" style="font-family: 'Dosis', sans-serif;">
 <script type="text/javascript">
 function registrar(){
     if(confirm('¿Estás seguro?'))
@@ -375,7 +365,7 @@ function registrar(){
 
      <%--select T1.nombre_cur,T3.frec,T2.fecha,T2.id_sesion from cursos T1 inner join sesion T2 inner join registro T3 on T3.id_registro=T2.id_registro and T1.cod_cur=T3.cod_cur where T2.fecha like '%"+reloj2+"%' and T3.dni_pro="+dnipro --%>
 <tr>  
-                            <th class="info"><%=rs.getString(1)%></th>
+                            <th class="bg-warning"><%=rs.getString(1)%></th>
                             <th class="info"><%=rs.getString(2)%></th>
                             <th class="info"><%=rs.getString(3)%></th>
                             <th class="info"><%=rs.getString(5)%> - <%=rs.getString(6)%></th>
@@ -400,7 +390,7 @@ function registrar(){
 
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6" id="oculto" style="display: block">
 <form name="form_reloj2" method="post" action="ingreso">
     <%
     try {
@@ -420,8 +410,7 @@ function registrar(){
     document.form_reloj222.abc.value=horaImprimible222;return registrar();"><img src="Iconos/aqui1.png" width="40" height="40"></button>
     <label style="width: 100%">Marca Ingreso</label>
     --%>
-    <button type="submit" class="btn btn-outline-danger" onclick="document.getElementById('abc').style.color='#000'; 
-        document.form_reloj222.abc.value=horaImprimible222;return registrar();">INGRESO</button>
+    <button type="submit" class="btn btn-outline-danger" onclick="return registrar();mostrar();">MARCA INGRESO</button>
 
     <br><br>
 
@@ -471,8 +460,8 @@ function registrar(){
     <img src="Iconos/aqui1.png" width="40" height="40"></button>
     <label style="width: 100%">Marca Salida</label>--%>
     
-    <button type="submit" class="btn btn-outline-primary" onclick="document.getElementById('abc').style.color='#000'; 
-    document.form_reloj222.abc.value=horaImprimible222;return registrar();">SALIDA</button>
+    <button type="submit" class="btn btn-primary" onclick="document.getElementById('abc').style.color='#000'; 
+    document.form_reloj222.abc.value=horaImprimible222;return registrar();">MARCA SALIDA</button>
 
     
     
@@ -540,6 +529,97 @@ function registrar(){
 %>
 </div>
 --%>
+
+
+<div>
+  <%
+    try {
+        Connection cnx=null;
+            Statement sta=null;
+            ResultSet rs=null;
+    Class.forName("com.mysql.jdbc.Driver");
+    cnx = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdenei?user=root&password=root");
+    sta=cnx.createStatement();
+    rs=sta.executeQuery("select T5.nombre_cur,T1.horaingreso "
+            + "from ingreso T1 inner join profesores T2 "
+            + "inner join registro T3 "
+            + "inner join sesion T4 "
+            + "Inner join cursos T5 "
+            + "on T1.id_sesion=T4.id_sesion "
+            + "and T3.id_registro=T4.id_registro "
+            + "and T2.dni_pro=T3.dni_pro "
+            + "and T5.cod_cur=T3.cod_cur "
+            + "where T2.dni_pro="+dnipro+" and T4.fecha like '"+reloj2+"' LIMIT 1");
+    while (rs.next()){
+%>
+<H1 style="text-align: center">HOY</H1>
+<%--<input type="text" style="width: 40%;border-bottom-color: #0069B4;text-align: center;color: #0069B4;" disabled="" value="Curso: <%=rs.getString(1)%> ">
+<input type="text" style="width: 40%;border-bottom-color: #0069B4;text-align: center;color: #0069B4;" disabled="" value="Salida: <%=rs.getString(3)%>">
+--%>
+<div class="alert alert-warning" role="alert">
+    <%=rs.getString(1)%> <label style="color: red;margin-left: 5%">INGRESO</label> <%=rs.getString(2)%>
+</div>
+<%--<label style="color: #ff6666;"><b style="color: #0069B4;"><%=rs.getString(1)%></b> <%=rs.getString(2)%></label>--%>
+
+
+    <% 
+    }
+    sta.close();
+    rs.close();
+    cnx.close();
+    } catch (Exception e) {
+    }
+%>
+</div>
+<div>
+  <%
+    try {
+        Connection cnx=null;
+            Statement sta=null;
+            ResultSet rs=null;
+    Class.forName("com.mysql.jdbc.Driver");
+    cnx = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdenei?user=root&password=root");
+    sta=cnx.createStatement();
+    rs=sta.executeQuery("select T5.nombre_cur,T6.horasalida "
+            + "from ingreso T1 inner join profesores T2 "
+            + "inner join registro T3 "
+            + "inner join sesion T4 "
+            + "Inner join cursos T5 "
+            + "inner join salida T6 "
+            + "on T1.id_sesion=T4.id_sesion "
+            + "and T3.id_registro=T4.id_registro "
+            + "and T2.dni_pro=T3.dni_pro "
+            + "and T5.cod_cur=T3.cod_cur "
+            + "and T1.id_ingreso=T6.id_ingreso "
+            + "where T2.dni_pro="+dnipro+" and T4.fecha like '"+reloj2+"' LIMIT 1");
+    while (rs.next()){
+%>
+
+<%--<input type="text" style="width: 40%;border-bottom-color: #0069B4;text-align: center;color: #0069B4;" disabled="" value="Curso: <%=rs.getString(1)%> ">
+<input type="text" style="width: 40%;border-bottom-color: #0069B4;text-align: center;color: #0069B4;" disabled="" value="Salida: <%=rs.getString(3)%>">
+--%>
+<div class="alert alert-warning" role="alert">
+    <%=rs.getString(1)%> <label style="color: red;margin-left: 5%">SALIDA</label> <%=rs.getString(2)%>
+</div>
+<%--<label style="color: #ff6666;"><b style="color: #0069B4;"><%=rs.getString(1)%></b> <%=rs.getString(2)%></label>--%>
+
+
+    <% 
+    }
+    sta.close();
+    rs.close();
+    cnx.close();
+    } catch (Exception e) {
+    }
+%>
+</div>
+
+
+
+
+
+<H1 style="text-align: center">HISTORIAL</H1>
+
 <div>
   <%
     try {
@@ -560,7 +640,7 @@ function registrar(){
             + "and T2.dni_pro=T3.dni_pro "
             + "and T5.cod_cur=T3.cod_cur "
             + "and T1.id_ingreso=T6.id_ingreso "
-            + "where T2.dni_pro="+dnipro+" order by T1.id_ingreso desc");
+            + "where T2.dni_pro="+dnipro+" group by T1.id_ingreso desc");
     while (rs.next()){
 %>
 
@@ -664,7 +744,10 @@ select T1.nombre_cur,T3.frec,T2.fecha,T2.id_sesion from cursos T1 inner join ses
     
 </div>
   <br>  
-
+<script type="text/javascript">
+function mostrar(){
+document.getElementById('oculto').style.display = "none";}
+</script>
     <%--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
