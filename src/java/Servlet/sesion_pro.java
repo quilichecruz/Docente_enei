@@ -64,7 +64,7 @@ public class sesion_pro extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-         String dnipro=request.getParameter("dnipro");
+        String dnipro=request.getParameter("dnipro");
         String reloj2 = request.getParameter("reloj2");
         String reloj3 = request.getParameter("reloj3");
         InetAddress addr = InetAddress.getLocalHost();

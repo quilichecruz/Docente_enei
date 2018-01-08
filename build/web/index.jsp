@@ -16,7 +16,6 @@
     String reloj2=(String)session.getAttribute("reloj2");
     String reloj3=(String)session.getAttribute("reloj3");
     String idsesion = request.getParameter("idsesion");
-    
 %>
   
 
@@ -24,23 +23,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
-                <script type="text/javascript"  src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script type="text/javascript"  src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-        <%--<link rel="stylesheet" href="css/estilos_index1.css">
-        <link rel="icon" type="image/png" href="Iconos/inei.png"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"> <!--Iconos--> 
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
-        <link rel="stylesheet" href="css/custom.css">
-        <script src="jquery-1.3.2.min.js" type="text/javascript"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>--%>
         <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-
-
-
-        
 <script type="text/javascript">
 function Reloj(){ 
 A = new Date()
@@ -340,7 +326,12 @@ tiempo = setTimeout('hora()',1000)
     Class.forName("com.mysql.jdbc.Driver");
     cnx = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdenei?user=root&password=root");
     sta=cnx.createStatement();
-    rs=sta.executeQuery("select T1.nombre_cur,T3.frec,T2.fecha,T2.id_sesion,T2.horasini,T2.horasfin from cursos T1 inner join sesion T2 inner join registro T3 on T3.id_registro=T2.id_registro and T1.cod_cur=T3.cod_cur where T2.fecha like '"+reloj2+"' and T3.dni_pro="+dnipro+" and '"+reloj3+"' between subtime(T2.horasini,'00:16') and addtime(T2.horasfin,'01:00:00')");
+    rs=sta.executeQuery("select T1.nombre_cur,T3.frec,T2.fecha,T2.id_sesion,T2.horasini,"
+            + "T2.horasfin from cursos T1 inner join sesion T2 inner join registro T3 "
+            + "on T3.id_registro=T2.id_registro and T1.cod_cur=T3.cod_cur "
+            + "where T2.fecha like '"+reloj2+"' and T3.dni_pro="+dnipro+" and '"+reloj3+"' "
+            + "between subtime(T2.horasini,'00:16') and addtime(T2.horasfin,'01:00:00') "
+            + "order by T2.id_sesion desc limit 1");
     while (rs.next()){
 %>
 <div class="row" id="div2" style="display:block">
@@ -393,7 +384,7 @@ tiempo = setTimeout('hora()',1000)
     Class.forName("com.mysql.jdbc.Driver");
     cnx = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdenei?user=root&password=root");
     sta=cnx.createStatement();
-    rs=sta.executeQuery("select T1.nombre_cur,T3.frec,T2.fecha,T2.id_sesion,T2.horasini,T2.horasfin from cursos T1 inner join sesion T2 inner join registro T3 inner join ingreso I on T3.id_registro=T2.id_registro and T1.cod_cur=T3.cod_cur where T2.fecha like '"+reloj2+"' and T3.dni_pro="+dnipro+" and '"+reloj3+"' between subtime(T2.horasini,'00:16') and addtime(T2.horasfin,'01:00:00') and T2.id_sesion not in (select I.id_sesion from ingreso I) group by T2.id_sesion");
+    rs=sta.executeQuery("select T1.nombre_cur,T3.frec,T2.fecha,T2.id_sesion,T2.horasini,T2.horasfin from cursos T1 inner join sesion T2 inner join registro T3 inner join ingreso I on T3.id_registro=T2.id_registro and T1.cod_cur=T3.cod_cur where T2.fecha like '"+reloj2+"' and T3.dni_pro="+dnipro+" and '"+reloj3+"' between subtime(T2.horasini,'00:16') and addtime(T2.horasfin,'01:00:00') and T2.id_sesion not in (select I.id_sesion from ingreso I) group by T2.id_sesion desc LIMIT 1");
     while (rs.next()){
 %>
             <input type="text" name="idsesion" required="required" value="<%=rs.getString(4)%>" style="font-size: 20px;display: none">
@@ -407,7 +398,7 @@ tiempo = setTimeout('hora()',1000)
     } catch (Exception e) {
     }
 %>
-            <input type="text" id="abc" name="reloj"  style="width: 10%;text-align: center; font-size: 50px;border: 0px;color: #ddd;display: none" required="required" readonly="">
+            <input type="text" id="abc11" name="reloj"  style="width: 10%;text-align: center; font-size: 50px;border: 0px;color: #ddd;display: none" required="required" readonly="">
         </form>
     </div>
 
@@ -432,7 +423,7 @@ tiempo = setTimeout('hora()',1000)
             + "and T2.id_sesion=T4.id_sesion "
             + "where T2.fecha like '"+reloj2+"' "
             + "and T3.dni_pro="+dnipro+" and '"+reloj3+"' "
-            + "between subtime(T2.horasini,'00:16') and addtime(T2.horasfin,'01:00:00') and T4.id_ingreso not in (select S.id_ingreso from salida S) group by T4.id_ingreso");
+            + "between subtime(T2.horasini,'00:16') and addtime(T2.horasfin,'01:00:00') and T4.id_ingreso not in (select S.id_ingreso from salida S) group by T4.id_ingreso desc LIMIT 1");
     while (rs.next()){
 %>
             <input type="text" name="idingreso" required="required" value="<%=rs.getString(7)%>" style="font-size: 20px;display: none">
@@ -451,7 +442,7 @@ tiempo = setTimeout('hora()',1000)
     </div>
 </div>
         <form name="form_reloj222">
-            <input type="text"  id="abc" name="reloj222" style="width: 100%;text-align: center; font-size: 50px;border: 0px;color: #ddd;">
+            <input type="text"  id="abc1" name="reloj222" style="width: 100%;text-align: center; font-size: 50px;border: 0px;color: #ddd;">
         </form>
 <br><br>
 
@@ -473,11 +464,11 @@ tiempo = setTimeout('hora()',1000)
             + "and T3.id_registro=T4.id_registro "
             + "and T2.dni_pro=T3.dni_pro "
             + "and T5.cod_cur=T3.cod_cur "
-            + "where T2.dni_pro="+dnipro+" and T4.fecha like '"+reloj2+"' LIMIT 1");
+            + "where T2.dni_pro="+dnipro+" and T4.fecha like '"+reloj2+"' order by T4.id_sesion desc limit 1");
     while (rs.next()){
 %>
 
-<h1 style="text-align: center">HOY</h1>
+<h1 style="text-align: center">ÚLTIMA MARCACIÓN</h1>
 <div class="row alert alert-warning">
     <div class="col-md-6">
         <div class=" " role="alert">
@@ -512,7 +503,7 @@ tiempo = setTimeout('hora()',1000)
             + "and T2.dni_pro=T3.dni_pro "
             + "and T5.cod_cur=T3.cod_cur "
             + "and T1.id_ingreso=T6.id_ingreso "
-            + "where T2.dni_pro="+dnipro+" and T4.fecha like '"+reloj2+"' LIMIT 1");
+            + "where T2.dni_pro="+dnipro+" and T4.fecha like '"+reloj2+"' order by T4.id_sesion desc limit 1");
     while (rs.next()){
 %>
 
